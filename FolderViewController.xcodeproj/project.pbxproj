@@ -1,0 +1,383 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		838C9E9113E252BA00D6FB3E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 838C9E9013E252BA00D6FB3E /* README.md */; };
+		838C9E9513E2F81100D6FB3E /* DelegateTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 838C9E9313E2F81000D6FB3E /* DelegateTestController.m */; };
+		838C9E9613E2F81100D6FB3E /* DelegateTestController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 838C9E9413E2F81000D6FB3E /* DelegateTestController.xib */; };
+		83AD68C513E04B99001DA5C1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AD68C413E04B99001DA5C1 /* UIKit.framework */; };
+		83AD68C713E04B99001DA5C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AD68C613E04B99001DA5C1 /* Foundation.framework */; };
+		83AD68C913E04B99001DA5C1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AD68C813E04B99001DA5C1 /* CoreGraphics.framework */; };
+		83AD68CF13E04B99001DA5C1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68CD13E04B99001DA5C1 /* InfoPlist.strings */; };
+		83AD68D113E04B99001DA5C1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AD68D013E04B99001DA5C1 /* main.m */; };
+		83AD68D513E04B99001DA5C1 /* FolderViewControllerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AD68D413E04B99001DA5C1 /* FolderViewControllerAppDelegate.m */; };
+		83AD68D813E04B9A001DA5C1 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AD68D713E04B9A001DA5C1 /* FirstViewController.m */; };
+		83AD68DA13E04B9A001DA5C1 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68D913E04B9A001DA5C1 /* first.png */; };
+		83AD68DC13E04B9A001DA5C1 /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68DB13E04B9A001DA5C1 /* first@2x.png */; };
+		83AD68DF13E04B9A001DA5C1 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AD68DE13E04B9A001DA5C1 /* SecondViewController.m */; };
+		83AD68E113E04B9A001DA5C1 /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68E013E04B9A001DA5C1 /* second.png */; };
+		83AD68E313E04B9A001DA5C1 /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68E213E04B9A001DA5C1 /* second@2x.png */; };
+		83AD68E613E04B9A001DA5C1 /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68E413E04B9A001DA5C1 /* FirstViewController.xib */; };
+		83AD68E913E04B9A001DA5C1 /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68E713E04B9A001DA5C1 /* SecondViewController.xib */; };
+		83AD68F313E04CA2001DA5C1 /* TabFolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AD68F013E04CA2001DA5C1 /* TabFolderViewController.m */; };
+		83AD68F413E04CA2001DA5C1 /* FolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AD68F213E04CA2001DA5C1 /* FolderViewController.m */; };
+		83AD68FB13E04D0F001DA5C1 /* Arrow_Mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68F613E04D0F001DA5C1 /* Arrow_Mask.png */; };
+		83AD68FC13E04D0F001DA5C1 /* Arrow_Mask.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68F713E04D0F001DA5C1 /* Arrow_Mask.pxm */; };
+		83AD68FD13E04D0F001DA5C1 /* Arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68F813E04D0F001DA5C1 /* Arrow.png */; };
+		83AD68FE13E04D0F001DA5C1 /* background_folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68F913E04D0F001DA5C1 /* background_folder.png */; };
+		83AD68FF13E04D0F001DA5C1 /* Paper_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68FA13E04D0F001DA5C1 /* Paper_Background.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		838C9E9013E252BA00D6FB3E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = FolderViewController/README.md; sourceTree = "<group>"; };
+		838C9E9213E2F81000D6FB3E /* DelegateTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelegateTestController.h; sourceTree = "<group>"; };
+		838C9E9313E2F81000D6FB3E /* DelegateTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DelegateTestController.m; sourceTree = "<group>"; };
+		838C9E9413E2F81000D6FB3E /* DelegateTestController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DelegateTestController.xib; sourceTree = "<group>"; };
+		83AD68C013E04B99001DA5C1 /* FolderViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FolderViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		83AD68C413E04B99001DA5C1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		83AD68C613E04B99001DA5C1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		83AD68C813E04B99001DA5C1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		83AD68CC13E04B99001DA5C1 /* FolderViewController-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FolderViewController-Info.plist"; sourceTree = "<group>"; };
+		83AD68CE13E04B99001DA5C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		83AD68D013E04B99001DA5C1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		83AD68D213E04B99001DA5C1 /* FolderViewController-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FolderViewController-Prefix.pch"; sourceTree = "<group>"; };
+		83AD68D313E04B99001DA5C1 /* FolderViewControllerAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FolderViewControllerAppDelegate.h; sourceTree = "<group>"; };
+		83AD68D413E04B99001DA5C1 /* FolderViewControllerAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FolderViewControllerAppDelegate.m; sourceTree = "<group>"; };
+		83AD68D613E04B99001DA5C1 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		83AD68D713E04B9A001DA5C1 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		83AD68D913E04B9A001DA5C1 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
+		83AD68DB13E04B9A001DA5C1 /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
+		83AD68DD13E04B9A001DA5C1 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		83AD68DE13E04B9A001DA5C1 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		83AD68E013E04B9A001DA5C1 /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
+		83AD68E213E04B9A001DA5C1 /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
+		83AD68E513E04B9A001DA5C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FirstViewController.xib; sourceTree = "<group>"; };
+		83AD68E813E04B9A001DA5C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SecondViewController.xib; sourceTree = "<group>"; };
+		83AD68EF13E04CA2001DA5C1 /* TabFolderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabFolderViewController.h; sourceTree = "<group>"; };
+		83AD68F013E04CA2001DA5C1 /* TabFolderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabFolderViewController.m; sourceTree = "<group>"; };
+		83AD68F113E04CA2001DA5C1 /* FolderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderViewController.h; sourceTree = "<group>"; };
+		83AD68F213E04CA2001DA5C1 /* FolderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderViewController.m; sourceTree = "<group>"; };
+		83AD68F613E04D0F001DA5C1 /* Arrow_Mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Arrow_Mask.png; sourceTree = "<group>"; };
+		83AD68F713E04D0F001DA5C1 /* Arrow_Mask.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = Arrow_Mask.pxm; sourceTree = "<group>"; };
+		83AD68F813E04D0F001DA5C1 /* Arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Arrow.png; sourceTree = "<group>"; };
+		83AD68F913E04D0F001DA5C1 /* background_folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_folder.png; sourceTree = "<group>"; };
+		83AD68FA13E04D0F001DA5C1 /* Paper_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Paper_Background.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		83AD68BD13E04B99001DA5C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83AD68C513E04B99001DA5C1 /* UIKit.framework in Frameworks */,
+				83AD68C713E04B99001DA5C1 /* Foundation.framework in Frameworks */,
+				83AD68C913E04B99001DA5C1 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		836D890D13E2FD8600A9A83B /* Test Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				83AD68D613E04B99001DA5C1 /* FirstViewController.h */,
+				83AD68D713E04B9A001DA5C1 /* FirstViewController.m */,
+				83AD68E413E04B9A001DA5C1 /* FirstViewController.xib */,
+				83AD68DD13E04B9A001DA5C1 /* SecondViewController.h */,
+				83AD68DE13E04B9A001DA5C1 /* SecondViewController.m */,
+				83AD68E713E04B9A001DA5C1 /* SecondViewController.xib */,
+				838C9E9213E2F81000D6FB3E /* DelegateTestController.h */,
+				838C9E9313E2F81000D6FB3E /* DelegateTestController.m */,
+				838C9E9413E2F81000D6FB3E /* DelegateTestController.xib */,
+			);
+			name = "Test Controllers";
+			sourceTree = "<group>";
+		};
+		83AD68B513E04B99001DA5C1 = {
+			isa = PBXGroup;
+			children = (
+				83AD68CA13E04B99001DA5C1 /* FolderViewController */,
+				838C9E9013E252BA00D6FB3E /* README.md */,
+				83AD68C313E04B99001DA5C1 /* Frameworks */,
+				83AD68C113E04B99001DA5C1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		83AD68C113E04B99001DA5C1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				83AD68C013E04B99001DA5C1 /* FolderViewController.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		83AD68C313E04B99001DA5C1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				83AD68C413E04B99001DA5C1 /* UIKit.framework */,
+				83AD68C613E04B99001DA5C1 /* Foundation.framework */,
+				83AD68C813E04B99001DA5C1 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		83AD68CA13E04B99001DA5C1 /* FolderViewController */ = {
+			isa = PBXGroup;
+			children = (
+				83AD68F513E04CEE001DA5C1 /* Images */,
+				83AD68F113E04CA2001DA5C1 /* FolderViewController.h */,
+				83AD68F213E04CA2001DA5C1 /* FolderViewController.m */,
+				83AD68EF13E04CA2001DA5C1 /* TabFolderViewController.h */,
+				83AD68F013E04CA2001DA5C1 /* TabFolderViewController.m */,
+				83AD68CB13E04B99001DA5C1 /* Supporting Files */,
+				836D890D13E2FD8600A9A83B /* Test Controllers */,
+			);
+			path = FolderViewController;
+			sourceTree = "<group>";
+		};
+		83AD68CB13E04B99001DA5C1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				83AD68D313E04B99001DA5C1 /* FolderViewControllerAppDelegate.h */,
+				83AD68D413E04B99001DA5C1 /* FolderViewControllerAppDelegate.m */,
+				83AD68CC13E04B99001DA5C1 /* FolderViewController-Info.plist */,
+				83AD68CD13E04B99001DA5C1 /* InfoPlist.strings */,
+				83AD68D013E04B99001DA5C1 /* main.m */,
+				83AD68D213E04B99001DA5C1 /* FolderViewController-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		83AD68F513E04CEE001DA5C1 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				83AD68D913E04B9A001DA5C1 /* first.png */,
+				83AD68DB13E04B9A001DA5C1 /* first@2x.png */,
+				83AD68E013E04B9A001DA5C1 /* second.png */,
+				83AD68E213E04B9A001DA5C1 /* second@2x.png */,
+				83AD68F613E04D0F001DA5C1 /* Arrow_Mask.png */,
+				83AD68F713E04D0F001DA5C1 /* Arrow_Mask.pxm */,
+				83AD68F813E04D0F001DA5C1 /* Arrow.png */,
+				83AD68F913E04D0F001DA5C1 /* background_folder.png */,
+				83AD68FA13E04D0F001DA5C1 /* Paper_Background.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		83AD68BF13E04B99001DA5C1 /* FolderViewController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83AD68EC13E04B9A001DA5C1 /* Build configuration list for PBXNativeTarget "FolderViewController" */;
+			buildPhases = (
+				83AD68BC13E04B99001DA5C1 /* Sources */,
+				83AD68BD13E04B99001DA5C1 /* Frameworks */,
+				83AD68BE13E04B99001DA5C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FolderViewController;
+			productName = FolderViewController;
+			productReference = 83AD68C013E04B99001DA5C1 /* FolderViewController.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83AD68B713E04B99001DA5C1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "AeroComputers, Inc.";
+			};
+			buildConfigurationList = 83AD68BA13E04B99001DA5C1 /* Build configuration list for PBXProject "FolderViewController" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 83AD68B513E04B99001DA5C1;
+			productRefGroup = 83AD68C113E04B99001DA5C1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				83AD68BF13E04B99001DA5C1 /* FolderViewController */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		83AD68BE13E04B99001DA5C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83AD68CF13E04B99001DA5C1 /* InfoPlist.strings in Resources */,
+				83AD68DA13E04B9A001DA5C1 /* first.png in Resources */,
+				83AD68DC13E04B9A001DA5C1 /* first@2x.png in Resources */,
+				83AD68E113E04B9A001DA5C1 /* second.png in Resources */,
+				83AD68E313E04B9A001DA5C1 /* second@2x.png in Resources */,
+				83AD68E613E04B9A001DA5C1 /* FirstViewController.xib in Resources */,
+				83AD68E913E04B9A001DA5C1 /* SecondViewController.xib in Resources */,
+				83AD68FB13E04D0F001DA5C1 /* Arrow_Mask.png in Resources */,
+				83AD68FC13E04D0F001DA5C1 /* Arrow_Mask.pxm in Resources */,
+				83AD68FD13E04D0F001DA5C1 /* Arrow.png in Resources */,
+				83AD68FE13E04D0F001DA5C1 /* background_folder.png in Resources */,
+				83AD68FF13E04D0F001DA5C1 /* Paper_Background.png in Resources */,
+				838C9E9113E252BA00D6FB3E /* README.md in Resources */,
+				838C9E9613E2F81100D6FB3E /* DelegateTestController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		83AD68BC13E04B99001DA5C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83AD68D113E04B99001DA5C1 /* main.m in Sources */,
+				83AD68D513E04B99001DA5C1 /* FolderViewControllerAppDelegate.m in Sources */,
+				83AD68D813E04B9A001DA5C1 /* FirstViewController.m in Sources */,
+				83AD68DF13E04B9A001DA5C1 /* SecondViewController.m in Sources */,
+				83AD68F313E04CA2001DA5C1 /* TabFolderViewController.m in Sources */,
+				83AD68F413E04CA2001DA5C1 /* FolderViewController.m in Sources */,
+				838C9E9513E2F81100D6FB3E /* DelegateTestController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		83AD68CD13E04B99001DA5C1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				83AD68CE13E04B99001DA5C1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		83AD68E413E04B9A001DA5C1 /* FirstViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				83AD68E513E04B9A001DA5C1 /* en */,
+			);
+			name = FirstViewController.xib;
+			sourceTree = "<group>";
+		};
+		83AD68E713E04B9A001DA5C1 /* SecondViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				83AD68E813E04B9A001DA5C1 /* en */,
+			);
+			name = SecondViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		83AD68EA13E04B9A001DA5C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		83AD68EB13E04B9A001DA5C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		83AD68ED13E04B9A001DA5C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FolderViewController/FolderViewController-Prefix.pch";
+				INFOPLIST_FILE = "FolderViewController/FolderViewController-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		83AD68EE13E04B9A001DA5C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FolderViewController/FolderViewController-Prefix.pch";
+				INFOPLIST_FILE = "FolderViewController/FolderViewController-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		83AD68BA13E04B99001DA5C1 /* Build configuration list for PBXProject "FolderViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83AD68EA13E04B9A001DA5C1 /* Debug */,
+				83AD68EB13E04B9A001DA5C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83AD68EC13E04B9A001DA5C1 /* Build configuration list for PBXNativeTarget "FolderViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83AD68ED13E04B9A001DA5C1 /* Debug */,
+				83AD68EE13E04B9A001DA5C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83AD68B713E04B99001DA5C1 /* Project object */;
+}
