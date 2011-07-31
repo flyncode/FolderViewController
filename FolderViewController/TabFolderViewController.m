@@ -1,10 +1,30 @@
+// ============================================================================
 //
 //  ComboBoxViewController.m
 //  ICSTest
 //
 //  Created by Chris Warner on 7/20/11.
-//  Copyright 2011 AeroComputers, Inc. All rights reserved.
+//  Copyright 2011 BrilliantConcept.net
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+// 
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+// 
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+// 
+// ============================================================================
 
 #import "TabFolderViewController.h"
 #import <QuartzCore/QuartzCore.h>
@@ -22,35 +42,41 @@ const int OFFSET_Y = 15;
 - (void)adjustArrowPositionFromPoint:(CGPoint)pt
 {
 	CGRect ctrlFrame = [_control frame];
-#if 1
-	// Apart of _folderView
-	_arrowBGView.frame = CGRectMake(ctrlFrame.origin.x - STRETCH_LEFT_CAP - OFFSET_X, 
-									 -ctrlFrame.size.height - OFFSET_Y,
-									 ctrlFrame.size.width + (STRETCH_LEFT_CAP * 2) + (OFFSET_X * 2), 
-									 /*ctrlFrame.size.height*/ + _arrowBGView.image.size.height /*(OFFSET_Y * 2)*/);
-	
-	_tabCover.frame = self.arrowTip.frame;
-#else
-	// Subview of self.view
-	_arrowBGView.frame = CGRectMake(ctrlFrame.origin.x - STRETCH_LEFT_CAP - OFFSET_X, 
-									ctrlFrame.origin.y - OFFSET_Y,
+	CGRect arrowFrame = CGRectMake(ctrlFrame.origin.x - STRETCH_LEFT_CAP - OFFSET_X, 
+									-ctrlFrame.size.height - OFFSET_Y,
 									ctrlFrame.size.width + (STRETCH_LEFT_CAP * 2) + (OFFSET_X * 2), 
-									ctrlFrame.size.height + _arrowBGView.image.size.height /*(OFFSET_Y * 2)*/);
+									self.arrowTip.image.size.height + (OFFSET_Y * 2));
 	
-	_tabCover.frame = [_folderView convertRect:self.arrowTip.frame fromView:self.view];
-#endif
+	self.arrowTip.frame = arrowFrame;
+	self.arrowCover.frame = arrowFrame;
+	
+	NSLog(@"%f, %f, %f, %f", self.arrowCover.frame.origin.x, self.arrowCover.frame.origin.y, self.arrowCover.frame.size.width, self.arrowCover.frame.size.height);
+	
 }
 
-- (void)layoutFinalFrame
+- (void)adjustFolderFrameRelativeToPoint:(CGPoint)folderPt
 {
-	[super layoutFinalFrame];
+	// Override to ignore the arrow image's height in determining
+	// the y-placement
+	self.folderView.frame = CGRectMake(0, folderPt.y,
+									   self.contentView.frame.size.width, 
+									   self.contentView.frame.size.height);
+}
+
+- (void)layoutOpenFolderAtPoint:(CGPoint)folderPt
+{
+	[super layoutOpenFolderAtPoint:folderPt];
 	
 	// Move the "tab" image out of the way as well
-	//self.arrowCover.frame = CGRectOffset(self.arrowCover.frame, 0, 
-	//								   self.mFolderView.frame.size.height/* + self.arrowCover.frame.size.height*/);
+	self.arrowCover.frame = CGRectMake(self.arrowTip.frame.origin.x, 				
+									   self.folderView.frame.size.height,
+									   self.arrowCover.frame.size.width,
+									   self.arrowCover.frame.size.height);
+									
+	[self.folderView bringSubviewToFront:self.arrowCover];
+	NSLog(@"%f, %f, %f, %f", self.arrowCover.frame.origin.x, self.arrowCover.frame.origin.y, self.arrowCover.frame.size.width, self.arrowCover.frame.size.height);
 	
-	_tabCover.frame = CGRectOffset(_tabCover.frame, 0, 
-								   self.folderView.frame.size.height + _tabCover.frame.size.height);
+	[self.view bringSubviewToFront:(UIView*)_control];
 }
 
 - (void)captureImageFromControl:(id)control
@@ -69,13 +95,13 @@ const int OFFSET_Y = 15;
 									ctrlFrame.size.width + (STRETCH_LEFT_CAP * 2) + (OFFSET_X * 2), 
 									ctrlFrame.size.height + (OFFSET_Y * 2));
 	
-	_tabCover.frame = ctrlFrame;
-	_tabCover.image = _tabMask;
+	self.arrowCover.frame = ctrlFrame;
+	self.arrowCover.image = _tabMask;
 	
 	UIGraphicsBeginImageContext(ctrlFrame.size);
 	//[_tabMask drawInRect:ctrlFrame];
 	CGContextRef g = UIGraphicsGetCurrentContext();
-	[_tabCover.layer renderInContext:g];
+	[self.arrowCover.layer renderInContext:g];
 	
 	UIImage* sizedMask = UIGraphicsGetImageFromCurrentImageContext();
 	
@@ -83,11 +109,6 @@ const int OFFSET_Y = 15;
 	[control setHidden:YES];
 	[self captureTabImageWithRect:ctrlFrame imageMask:sizedMask];
 	[control setHidden:NO];
-	
-	//_tabCover.image = sizedMask;
-	
-	//[self.view bringSubviewToFront:control];
-	//[self.view sendSubviewToBack:_folderView];
 }
 
 - (void)captureTabImageWithRect:(CGRect)tabRect imageMask:(UIImage*)maskImage
@@ -115,14 +136,38 @@ const int OFFSET_Y = 15;
 	
 	// Mask the offscreen render with the input maskImage
 	CGImageRef masked = CGImageCreateWithMask(tabFG.CGImage, mask);
-	_tabCover.image = [UIImage imageWithCGImage:masked];
+	self.arrowCover.image = [UIImage imageWithCGImage:masked];
 }
 
 @end
 
 @implementation TabFolderViewController
 
-//@synthesize arrowCover;
+#pragma mark - Properties
+
+- (UIImageView*)arrowTip
+{
+	if (self->_arrowBGView == nil)
+	{
+		// Override the arrow image with a stretch-able version
+		UIImageView* _val = [super arrowTip];
+		_val.image = [_val.image stretchableImageWithLeftCapWidth:28.0 topCapHeight:0.0];
+	}
+	
+	return [super arrowTip];
+}
+
+- (UIImageView*)arrowCover
+{
+	if (_tabCover == nil)
+	{
+		_tabCover = [[UIImageView alloc] initWithFrame:CGRectZero];
+		[self.folderView addSubview:_tabCover];
+	}
+	return _tabCover;
+}
+
+#pragma mark - UIViewController stuff
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -142,6 +187,17 @@ const int OFFSET_Y = 15;
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)dealloc
+{
+	if (_tabCover != nil)
+	{
+		[_tabCover release];
+		_tabCover = nil;
+	}
+	
+	[super dealloc];
+}
+
 #pragma mark - View lifecycle
 
 /*
@@ -155,15 +211,6 @@ const int OFFSET_Y = 15;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-	// Override the arrow image with a stretch-able version
-	_arrowBGView.image = [[UIImage imageNamed:@"Arrow.png"] stretchableImageWithLeftCapWidth:28.0 topCapHeight:0.0];
-
-	// Create other resources - Lazy initialization via property?
-	_tabCover = [[UIImageView alloc] initWithFrame:CGRectZero];
-	[self.folderView insertSubview:_tabCover belowSubview:_bgBottomView];
-	//[_folderView addSubview:_tabCover];
-	//[self.view insertSubview:_tabCover aboveSubview:_folderView];
 }
 
 - (void)viewDidUnload

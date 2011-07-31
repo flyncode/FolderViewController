@@ -1,14 +1,34 @@
+// ============================================================================
 //
 //  FolderViewController.m
 //
 //  Created by Bharath Booshan on 02/12/11
 //  Refactored by Chris Warner on 07/27/11
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+// 
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+// 
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+// 
+// ============================================================================
 
 #import "FolderViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-const int ANIMATION_STETCH = 1;
+const int ANIMATION_STETCH = 4;
 
 @implementation FolderViewController (Protected)
 
@@ -42,14 +62,14 @@ const int ANIMATION_STETCH = 1;
 	_lastControl = control;
 }
 
-- (void)captureImageFromPoint:(CGPoint)selectedFolderPoint
+- (void)captureImageFromPoint:(CGPoint)folderPt
 {
     UIGraphicsBeginImageContext(self.view.frame.size);
 	
 	// Offset the current context to the portion of the view
 	// to pan down as a result of opening the folder
 	CGContextRef g = UIGraphicsGetCurrentContext();
-	CGContextTranslateCTM(g, 0, -(selectedFolderPoint.y + _arrowBGView.frame.size.height));
+	CGContextTranslateCTM(g, 0, -(folderPt.y + _arrowBGView.frame.size.height));
 	
 	// Capture the main view's content to an image
 	[self.view.layer renderInContext:g];	
@@ -68,27 +88,31 @@ const int ANIMATION_STETCH = 1;
 	self.bottomBGImage.image = backgroundImage;
 }
 
-- (void)layoutFirstFrameRelativeToPoint:(CGPoint)selectedFolderPoint
+- (void)adjustFolderFrameRelativeToPoint:(CGPoint)folderPt
 {
-	[self adjustArrowPositionFromPoint:selectedFolderPoint];
-	
 	//Place the Folder View Just below Arrow View
-	CGRect folderViewFrame = CGRectMake(0, selectedFolderPoint.y + _arrowBGView.frame.size.height,		// Compensate for the arrow
-										self.tempContent.frame.size.width, 
-										self.tempContent.frame.size.height);
-	
-	// Make sure the view which displays the bottom offset
-	// portion of the view is below the arrow
-	CGRect maskFrame = CGRectMake(0, folderViewFrame.origin.y,
-								  self.view.bounds.size.width, 
-								  self.view.bounds.size.height);
-	
-	self.folderView.frame = folderViewFrame;
-	self.bottomBGImage.frame = maskFrame;
-	self.arrowTip.hidden = NO;
+	self.folderView.frame = CGRectMake(0, folderPt.y + self.arrowTip.frame.size.height,
+										self.contentView.frame.size.width, 
+										self.contentView.frame.size.height);
 }
 
-- (void)layoutFinalFrame
+- (void)adjustCaptureFrameRelativeToPoint:(CGPoint)folderPt
+{
+	// Make sure the view which displays the bottom offset
+	// portion of the view is below the arrow
+	self.bottomBGImage.frame = CGRectMake(0, self.folderView.frame.origin.y,
+											self.view.bounds.size.width, 
+											self.view.bounds.size.height);
+}
+
+- (void)layoutClosedFolderAtPoint:(CGPoint)folderPt
+{
+	[self adjustArrowPositionFromPoint:folderPt];
+	[self adjustFolderFrameRelativeToPoint:folderPt];
+	[self adjustCaptureFrameRelativeToPoint:folderPt];	
+}
+
+- (void)layoutOpenFolderAtPoint:(CGPoint)folderPt
 {
 	// Move the captured view BG into position below the edge of the folder
 	self.bottomBGImage.frame = CGRectOffset(self.bottomBGImage.frame, 0, self.folderView.frame.size.height);
@@ -102,7 +126,7 @@ const int ANIMATION_STETCH = 1;
 
 @synthesize delegate;
 @synthesize isOpen;
-@synthesize tempContent;
+@synthesize contentView;
 
 - (UIView*)folderView
 {
@@ -230,14 +254,24 @@ const int ANIMATION_STETCH = 1;
 		[self.delegate willOpenFolderForControl:_control];
 	
 	// STEP 0: Get the content of the Folder View, via a sub-class or delegate
-	self.tempContent = [self folderViewForControl:sender];
+	self.contentView = [self folderViewForControl:sender];
 	[self.folderView removeFromSuperview];
 	[self.view insertSubview:self.folderView belowSubview:_control];
-	//[self.view sendSubviewToBack:self.almostFolderView];			// Try to force the folder view behind the rest of the content
-	[self.folderView addSubview:self.tempContent];			// Add the content to our folder container
+	[self.view bringSubviewToFront:self.bottomBGImage];
+	
+	// If the content view background color is the clear color, add in the
+	// fabric background for free
+	/*if ([self.contentView.backgroundColor isEqual:[UIColor clearColor]])
+	{
+		UIColor* fabricColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"fabric"]];
+		//UIImageView* fabric = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fabric"]];
+		self.contentView.backgroundColor = fabricColor;
+	}*/
+	
+	[self.folderView addSubview:self.contentView];					// Add the content to our folder container
 		
-	CGPoint selectedFolderPoint = [self folderOriginForControl:sender];
-	NSLog(@"Open Point: %f, %f", selectedFolderPoint.x, selectedFolderPoint.y);
+	CGPoint folderPt = [self folderOriginForControl:sender];
+	NSLog(@"Open Point: %f, %f", folderPt.x, folderPt.y);
 	
 	// STEP 1: Capture the Main View Content into an image, if we need to
 	if ((_lastControl == nil) || (_lastControl != sender))
@@ -245,7 +279,7 @@ const int ANIMATION_STETCH = 1;
 	
 	// STEP 2: Layout the folder view, arrow image, and bottom 
 	// part of the content view
-	[self layoutFirstFrameRelativeToPoint:selectedFolderPoint];
+	[self layoutClosedFolderAtPoint:folderPt];
 	
 	// STEP 3: Animate the view components, so the folder moves
 	// into the open position
@@ -258,7 +292,7 @@ const int ANIMATION_STETCH = 1;
 	self.folderView.hidden = NO;
 	self.bottomBGImage.hidden = NO;
 	
-	[self layoutFinalFrame];
+	[self layoutOpenFolderAtPoint:folderPt];
 	[UIView commitAnimations];
 	
 	self->isOpen = YES;
@@ -276,18 +310,16 @@ const int ANIMATION_STETCH = 1;
 	if ([self.delegate respondsToSelector:@selector(willCloseFolderForControl:)])
 		[self.delegate willCloseFolderForControl:_control];
 
-	// Restore the layout and hide the folder view after animation
-	CGPoint selectedFolderPoint = [self folderOriginForControl:sender];
-	NSLog(@"Close Point: %f, %f", selectedFolderPoint.x, selectedFolderPoint.y);
+	CGPoint folderPt = [self folderOriginForControl:sender];
 	
-	// Animate the folder closed
+	// Restore the layout and hide the folder view after animation
 	[UIView beginAnimations:@"FolderClose" context:NULL];
 	[UIView setAnimationDuration:(0.5 * (double)ANIMATION_STETCH)];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
 	[UIView setAnimationDidStopSelector:@selector(animation:didFinish:context:)];
 	[UIView setAnimationDelegate:self];
 	
-	[self layoutFirstFrameRelativeToPoint:selectedFolderPoint];
+	[self layoutClosedFolderAtPoint:folderPt];
 	
 	[UIView commitAnimations];
 	self->isOpen = NO;
@@ -302,11 +334,11 @@ const int ANIMATION_STETCH = 1;
 	}
 	else if ([animation isEqualToString:@"FolderClose"])
 	{
-	   self.folderView.hidden = YES;
-	   [self.tempContent removeFromSuperview];
-	   self.tempContent = nil;
-	   _bgBottomView.hidden = YES;
-	   _arrowBGView.hidden = YES;
+		self.folderView.hidden = YES;
+		self.bottomBGImage.hidden = YES;
+
+		[self.contentView removeFromSuperview];
+		self.contentView = nil;
 		
 		if ([self.delegate respondsToSelector:@selector(didCloseFolderForControl:)])
 			[self.delegate didCloseFolderForControl:_control];

@@ -21,3 +21,9 @@ The content of the folder view is requested by the same method, either in your s
 	- (UIView*)folderView:(FolderViewController*)viewController needsContentForControl:(id)control;
 	
 The return value should be a UIView that is inserted into our folder, placed in the UI heirarchy, and animated into view.
+
+# 3. Credits
+
+Starting source code: [original_blog][]
+
+Lined-paper texture: (~Dioma)[http://dioma.deviantart.com/art/Textures-Paper-58028330]
