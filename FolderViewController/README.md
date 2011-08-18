@@ -22,7 +22,11 @@ The content of the folder view is requested by the same method, either in your s
 	
 The return value should be a UIView that is inserted into our folder, placed in the UI heirarchy, and animated into view.
 
-# 3. Credits
+# 3. Debug Notes
+
+- In an effort to avoid magic numbers and pixel offsets, the image size is used to perform some placement calculations.  If the placement isn't lining up correctly, check to make sure all the required image resources are included in your project
+
+# 4. Credits
 
 Starting source code: [original_blog][]
 

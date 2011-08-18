@@ -28,7 +28,7 @@
 #import "FolderViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-const int ANIMATION_STETCH = 4;
+const int ANIMATION_STETCH = 1;
 
 @implementation FolderViewController (Protected)
 
@@ -156,7 +156,9 @@ const int ANIMATION_STETCH = 4;
 {
 	if (_arrowBGView == nil)
 	{
-		UIImage* img = [UIImage imageNamed:@"Arrow.png"];
+		UIImage* img = [UIImage imageNamed:@"ArrowShadow.png"];
+		if (img == nil)
+			NSLog(@"WARNING: Could not load ArrowShadow.png");
 
 		_arrowBGView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,img.size.width,img.size.height)];
 		_arrowBGView.image = img;
@@ -261,12 +263,12 @@ const int ANIMATION_STETCH = 4;
 	
 	// If the content view background color is the clear color, add in the
 	// fabric background for free
-	/*if ([self.contentView.backgroundColor isEqual:[UIColor clearColor]])
+	//if ([self.contentView.backgroundColor isEqual:[UIColor clearColor]])
 	{
 		UIColor* fabricColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"fabric"]];
 		//UIImageView* fabric = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fabric"]];
 		self.contentView.backgroundColor = fabricColor;
-	}*/
+	}
 	
 	[self.folderView addSubview:self.contentView];					// Add the content to our folder container
 		
@@ -276,6 +278,8 @@ const int ANIMATION_STETCH = 4;
 	// STEP 1: Capture the Main View Content into an image, if we need to
 	if ((_lastControl == nil) || (_lastControl != sender))
 		[self captureImageFromControl:_control];
+	else
+		NSLog(@"Skipping captureImageFromControl");
 	
 	// STEP 2: Layout the folder view, arrow image, and bottom 
 	// part of the content view

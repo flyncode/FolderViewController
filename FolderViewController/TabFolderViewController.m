@@ -35,23 +35,26 @@ const int OFFSET_Y = 15;
 
 @interface TabFolderViewController (Private)
 - (void)captureTabImageWithRect:(CGRect)tabRect imageMask:(UIImage*)maskImage;
+- (CGRect)getArrowRectForControl:(id)control;
 @end
 
 @implementation TabFolderViewController (Private)
 
+- (CGRect)getArrowRectInFolderViewForControl:(id)control
+{
+	CGRect ctrlFrame = [control frame];
+	return CGRectMake(ctrlFrame.origin.x - STRETCH_LEFT_CAP - OFFSET_X, 
+					  -ctrlFrame.size.height - OFFSET_Y,
+					  ctrlFrame.size.width + (STRETCH_LEFT_CAP * 2) + (OFFSET_X * 2), 
+					  self.arrowTip.image.size.height + (OFFSET_Y * 2));
+}
+
 - (void)adjustArrowPositionFromPoint:(CGPoint)pt
 {
-	CGRect ctrlFrame = [_control frame];
-	CGRect arrowFrame = CGRectMake(ctrlFrame.origin.x - STRETCH_LEFT_CAP - OFFSET_X, 
-									-ctrlFrame.size.height - OFFSET_Y,
-									ctrlFrame.size.width + (STRETCH_LEFT_CAP * 2) + (OFFSET_X * 2), 
-									self.arrowTip.image.size.height + (OFFSET_Y * 2));
-	
+	CGRect arrowFrame = [self getArrowRectInFolderViewForControl:_control];	
 	self.arrowTip.frame = arrowFrame;
-	self.arrowCover.frame = arrowFrame;
-	
-	NSLog(@"%f, %f, %f, %f", self.arrowCover.frame.origin.x, self.arrowCover.frame.origin.y, self.arrowCover.frame.size.width, self.arrowCover.frame.size.height);
-	
+	self.arrowCover.frame = arrowFrame;	
+	//NSLog(@"adjustArrowPositionFromPoint: %f, %f, %f, %f", self.arrowCover.frame.origin.x, self.arrowCover.frame.origin.y, self.arrowCover.frame.size.width, self.arrowCover.frame.size.height);
 }
 
 - (void)adjustFolderFrameRelativeToPoint:(CGPoint)folderPt
@@ -74,7 +77,10 @@ const int OFFSET_Y = 15;
 									   self.arrowCover.frame.size.height);
 									
 	[self.folderView bringSubviewToFront:self.arrowCover];
-	NSLog(@"%f, %f, %f, %f", self.arrowCover.frame.origin.x, self.arrowCover.frame.origin.y, self.arrowCover.frame.size.width, self.arrowCover.frame.size.height);
+	NSLog(@"layoutOpenFolderAtPoint: %f, %f, %f, %f", 	self.arrowCover.frame.origin.x + self.folderView.frame.origin.x, 
+		  												self.arrowCover.frame.origin.y + self.folderView.frame.origin.y, 
+		  												self.arrowCover.frame.size.width, self.arrowCover.frame.size.height);
+	//NSLog(@"Offset Origin: %f, %f", self.arrowCover.frame.origin.x + self.folderView.frame.origin.x, self.folderView.frame.origin.y + self.arrowCover.frame.origin.y);
 	
 	[self.view bringSubviewToFront:(UIView*)_control];
 }
@@ -89,30 +95,41 @@ const int OFFSET_Y = 15;
 	// image to the size of the tab
 	UIImage* _tabMask = [[UIImage imageNamed:@"Arrow_Mask.png"] stretchableImageWithLeftCapWidth:STRETCH_LEFT_CAP topCapHeight:0];
 	
-	CGRect ctrlFrame = [control frame];
+	/*CGRect ctrlFrame = [control frame];
 	ctrlFrame = CGRectMake(ctrlFrame.origin.x - STRETCH_LEFT_CAP - OFFSET_X, 
 									ctrlFrame.origin.y - OFFSET_Y,
 									ctrlFrame.size.width + (STRETCH_LEFT_CAP * 2) + (OFFSET_X * 2), 
 									ctrlFrame.size.height + (OFFSET_Y * 2));
+	*/
+	//CGRect ctrlFrame = [self getArrowRectInFolderViewForControl:control];
 	
-	self.arrowCover.frame = ctrlFrame;
+	CGRect ctrlFrame = [control frame];
+	CGRect tabSizeRec = CGRectMake(0, 0, ctrlFrame.size.width + (STRETCH_LEFT_CAP * 2) + (OFFSET_X * 2), 
+								   self.arrowTip.image.size.height + (OFFSET_Y * 2));
+								   //ctrlFrame.size.height + (OFFSET_Y * 2));
+	
+	self.arrowCover.frame = tabSizeRec;
 	self.arrowCover.image = _tabMask;
 	
-	UIGraphicsBeginImageContext(ctrlFrame.size);
-	//[_tabMask drawInRect:ctrlFrame];
+	UIGraphicsBeginImageContext(tabSizeRec.size);
+	[_tabMask drawInRect:tabSizeRec];
 	CGContextRef g = UIGraphicsGetCurrentContext();
 	[self.arrowCover.layer renderInContext:g];
 	
 	UIImage* sizedMask = UIGraphicsGetImageFromCurrentImageContext();
 	
 	// Capture portion of view that is the "tab cover"
+	CGRect tabRectInView = CGRectOffset(tabSizeRec, ctrlFrame.origin.x - STRETCH_LEFT_CAP - OFFSET_X, ctrlFrame.origin.y - OFFSET_Y);
+	
 	[control setHidden:YES];
-	[self captureTabImageWithRect:ctrlFrame imageMask:sizedMask];
+	[self captureTabImageWithRect:tabRectInView imageMask:sizedMask];
 	[control setHidden:NO];
 }
 
 - (void)captureTabImageWithRect:(CGRect)tabRect imageMask:(UIImage*)maskImage
 {	
+	NSLog(@"captureTabImageWithRect: %f, %f, %f, %f", tabRect.origin.x, tabRect.origin.y, tabRect.size.width, tabRect.size.height);
+	
 	UIGraphicsBeginImageContext(tabRect.size);
 	
 	// Offset the current context to the portion of the view

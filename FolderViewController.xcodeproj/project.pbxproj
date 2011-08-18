@@ -10,6 +10,8 @@
 		838C9E9113E252BA00D6FB3E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 838C9E9013E252BA00D6FB3E /* README.md */; };
 		838C9E9513E2F81100D6FB3E /* DelegateTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 838C9E9313E2F81000D6FB3E /* DelegateTestController.m */; };
 		838C9E9613E2F81100D6FB3E /* DelegateTestController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 838C9E9413E2F81000D6FB3E /* DelegateTestController.xib */; };
+		8399CF2113F82940006771A7 /* ModalTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399CF1F13F82940006771A7 /* ModalTestController.m */; };
+		8399CF2213F82940006771A7 /* ModalTestController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8399CF2013F82940006771A7 /* ModalTestController.xib */; };
 		83AD68C513E04B99001DA5C1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AD68C413E04B99001DA5C1 /* UIKit.framework */; };
 		83AD68C713E04B99001DA5C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AD68C613E04B99001DA5C1 /* Foundation.framework */; };
 		83AD68C913E04B99001DA5C1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AD68C813E04B99001DA5C1 /* CoreGraphics.framework */; };
@@ -27,12 +29,13 @@
 		83AD68F313E04CA2001DA5C1 /* TabFolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AD68F013E04CA2001DA5C1 /* TabFolderViewController.m */; };
 		83AD68F413E04CA2001DA5C1 /* FolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AD68F213E04CA2001DA5C1 /* FolderViewController.m */; };
 		83AD68FB13E04D0F001DA5C1 /* Arrow_Mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68F613E04D0F001DA5C1 /* Arrow_Mask.png */; };
-		83AD68FC13E04D0F001DA5C1 /* Arrow_Mask.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68F713E04D0F001DA5C1 /* Arrow_Mask.pxm */; };
 		83AD68FD13E04D0F001DA5C1 /* Arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68F813E04D0F001DA5C1 /* Arrow.png */; };
 		83AD68FE13E04D0F001DA5C1 /* background_folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68F913E04D0F001DA5C1 /* background_folder.png */; };
 		83F02E2B13E481C900753768 /* Paper_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 83F02E2A13E481C900753768 /* Paper_Background.png */; };
 		83F02E2E13E4D61100753768 /* third.png in Resources */ = {isa = PBXBuildFile; fileRef = 83F02E2C13E4D61100753768 /* third.png */; };
 		83F02E2F13E4D61100753768 /* third@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83F02E2D13E4D61100753768 /* third@2x.png */; };
+		83F02E3113E4F41900753768 /* fabric.png in Resources */ = {isa = PBXBuildFile; fileRef = 83F02E3013E4F41900753768 /* fabric.png */; };
+		83F02E3313E4F52400753768 /* ArrowShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 83F02E3213E4F52400753768 /* ArrowShadow.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		838C9E9213E2F81000D6FB3E /* DelegateTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelegateTestController.h; sourceTree = "<group>"; };
 		838C9E9313E2F81000D6FB3E /* DelegateTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DelegateTestController.m; sourceTree = "<group>"; };
 		838C9E9413E2F81000D6FB3E /* DelegateTestController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DelegateTestController.xib; sourceTree = "<group>"; };
+		8399CF1E13F82940006771A7 /* ModalTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalTestController.h; sourceTree = "<group>"; };
+		8399CF1F13F82940006771A7 /* ModalTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalTestController.m; sourceTree = "<group>"; };
+		8399CF2013F82940006771A7 /* ModalTestController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalTestController.xib; sourceTree = "<group>"; };
 		83AD68C013E04B99001DA5C1 /* FolderViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FolderViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83AD68C413E04B99001DA5C1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		83AD68C613E04B99001DA5C1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -65,12 +71,13 @@
 		83AD68F113E04CA2001DA5C1 /* FolderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderViewController.h; sourceTree = "<group>"; };
 		83AD68F213E04CA2001DA5C1 /* FolderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderViewController.m; sourceTree = "<group>"; };
 		83AD68F613E04D0F001DA5C1 /* Arrow_Mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Arrow_Mask.png; sourceTree = "<group>"; };
-		83AD68F713E04D0F001DA5C1 /* Arrow_Mask.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = Arrow_Mask.pxm; sourceTree = "<group>"; };
 		83AD68F813E04D0F001DA5C1 /* Arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Arrow.png; sourceTree = "<group>"; };
 		83AD68F913E04D0F001DA5C1 /* background_folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_folder.png; sourceTree = "<group>"; };
 		83F02E2A13E481C900753768 /* Paper_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Paper_Background.png; sourceTree = "<group>"; };
 		83F02E2C13E4D61100753768 /* third.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = third.png; sourceTree = "<group>"; };
 		83F02E2D13E4D61100753768 /* third@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "third@2x.png"; sourceTree = "<group>"; };
+		83F02E3013E4F41900753768 /* fabric.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fabric.png; sourceTree = "<group>"; };
+		83F02E3213E4F52400753768 /* ArrowShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowShadow.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +97,9 @@
 		836D890D13E2FD8600A9A83B /* Test Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8399CF1E13F82940006771A7 /* ModalTestController.h */,
+				8399CF1F13F82940006771A7 /* ModalTestController.m */,
+				8399CF2013F82940006771A7 /* ModalTestController.xib */,
 				83AD68D613E04B99001DA5C1 /* FirstViewController.h */,
 				83AD68D713E04B9A001DA5C1 /* FirstViewController.m */,
 				83AD68E413E04B9A001DA5C1 /* FirstViewController.xib */,
@@ -161,6 +171,8 @@
 		83AD68F513E04CEE001DA5C1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				83F02E3213E4F52400753768 /* ArrowShadow.png */,
+				83F02E3013E4F41900753768 /* fabric.png */,
 				83F02E2C13E4D61100753768 /* third.png */,
 				83F02E2D13E4D61100753768 /* third@2x.png */,
 				83F02E2A13E481C900753768 /* Paper_Background.png */,
@@ -169,7 +181,6 @@
 				83AD68E013E04B9A001DA5C1 /* second.png */,
 				83AD68E213E04B9A001DA5C1 /* second@2x.png */,
 				83AD68F613E04D0F001DA5C1 /* Arrow_Mask.png */,
-				83AD68F713E04D0F001DA5C1 /* Arrow_Mask.pxm */,
 				83AD68F813E04D0F001DA5C1 /* Arrow.png */,
 				83AD68F913E04D0F001DA5C1 /* background_folder.png */,
 			);
@@ -235,7 +246,6 @@
 				83AD68E613E04B9A001DA5C1 /* FirstViewController.xib in Resources */,
 				83AD68E913E04B9A001DA5C1 /* SecondViewController.xib in Resources */,
 				83AD68FB13E04D0F001DA5C1 /* Arrow_Mask.png in Resources */,
-				83AD68FC13E04D0F001DA5C1 /* Arrow_Mask.pxm in Resources */,
 				83AD68FD13E04D0F001DA5C1 /* Arrow.png in Resources */,
 				83AD68FE13E04D0F001DA5C1 /* background_folder.png in Resources */,
 				838C9E9113E252BA00D6FB3E /* README.md in Resources */,
@@ -243,6 +253,9 @@
 				83F02E2B13E481C900753768 /* Paper_Background.png in Resources */,
 				83F02E2E13E4D61100753768 /* third.png in Resources */,
 				83F02E2F13E4D61100753768 /* third@2x.png in Resources */,
+				83F02E3113E4F41900753768 /* fabric.png in Resources */,
+				83F02E3313E4F52400753768 /* ArrowShadow.png in Resources */,
+				8399CF2213F82940006771A7 /* ModalTestController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,6 +273,7 @@
 				83AD68F313E04CA2001DA5C1 /* TabFolderViewController.m in Sources */,
 				83AD68F413E04CA2001DA5C1 /* FolderViewController.m in Sources */,
 				838C9E9513E2F81100D6FB3E /* DelegateTestController.m in Sources */,
+				8399CF2113F82940006771A7 /* ModalTestController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
