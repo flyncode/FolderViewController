@@ -152,14 +152,36 @@ const int ANIMATION_STETCH = 1;
 	return _bgBottomView;
 }
 
+- (void)setBottomBGImage:(UIImageView *)bottomBGImage
+{
+	if (_bgBottomView != nil)
+		[_bgBottomView release];
+	
+	_bgBottomView = [bottomBGImage retain];
+}
+
 - (UIImageView*)arrowTip
 {
 	if (_arrowBGView == nil)
 	{
+#if 1
+		UIImage* arrowMask = [UIImage imageNamed:@"Arrow_Mask.png"];
+		
+		UIGraphicsBeginImageContext(arrowMask.size);
+		CGContextRef g = UIGraphicsGetCurrentContext();
+		
+		UIColor* fabricColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"fabric"]];
+		[fabricColor setFill];
+		
+		CGContextFillRect(g, CGRectMake(0,0,arrowMask.size.width,arrowMask.size.height));
+		UIImage* fabricImg = UIGraphicsGetImageFromCurrentImageContext();
+		
+		UIImage* img = [FolderViewController maskImage:fabricImg withMask:arrowMask];	
+#else
 		UIImage* img = [UIImage imageNamed:@"ArrowShadow.png"];
 		if (img == nil)
 			NSLog(@"WARNING: Could not load ArrowShadow.png");
-
+#endif
 		_arrowBGView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,img.size.width,img.size.height)];
 		_arrowBGView.image = img;
 		[self.folderView addSubview:_arrowBGView];
@@ -168,24 +190,38 @@ const int ANIMATION_STETCH = 1;
 	return _arrowBGView;
 }
 
+- (void)setArrowTip:(UIImageView *)arrowTip
+{
+	if (_arrowBGView != nil)
+		[_arrowBGView release];
+	_arrowBGView = [arrowTip retain];
+}
+
+#pragma mark -
+
++ (UIImage*)maskImage:(UIImage*)src withMask:(UIImage*)maskImage
+{
+	// Create a CGImageMask from the UIImage
+	CGImageRef maskRef = maskImage.CGImage; 
+	CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
+										CGImageGetHeight(maskRef),
+										CGImageGetBitsPerComponent(maskRef),
+										CGImageGetBitsPerPixel(maskRef),
+										CGImageGetBytesPerRow(maskRef),
+										CGImageGetDataProvider(maskRef), NULL, false);
+	
+	// Mask the offscreen render with the input maskImage
+	CGImageRef masked = CGImageCreateWithMask(src.CGImage, mask);
+	UIImage* res = [UIImage imageWithCGImage:masked];
+	
+	// Cleanup
+	CGImageRelease(masked);
+	CGImageRelease(mask);
+	
+	return res;
+}
+
 #pragma mark - View Lifecycle
-
-/*
-// The designated initializer. Override to perform setup that is required before the view is loaded.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -217,12 +253,9 @@ const int ANIMATION_STETCH = 1;
 
 - (void)dealloc
 {
-	[self.arrowTip release];
-	_arrowBGView = nil;
-	
-	[self.bottomBGImage release];
-	_bgBottomView = nil;
-		
+	self.arrowTip = nil;
+	self.bottomBGImage = nil;
+			
     [super dealloc];
 }
 
@@ -261,19 +294,14 @@ const int ANIMATION_STETCH = 1;
 	[self.view insertSubview:self.folderView belowSubview:_control];
 	[self.view bringSubviewToFront:self.bottomBGImage];
 	
-	// If the content view background color is the clear color, add in the
-	// fabric background for free
-	//if ([self.contentView.backgroundColor isEqual:[UIColor clearColor]])
-	{
-		UIColor* fabricColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"fabric"]];
-		//UIImageView* fabric = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fabric"]];
-		self.contentView.backgroundColor = fabricColor;
-	}
+	// Add the fabric background for free
+	UIColor* fabricColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"fabric"]];
+	self.contentView.backgroundColor = fabricColor;
 	
-	[self.folderView addSubview:self.contentView];					// Add the content to our folder container
+	// Add the content to our folder container
+	[self.folderView addSubview:self.contentView];					
 		
 	CGPoint folderPt = [self folderOriginForControl:sender];
-	NSLog(@"Open Point: %f, %f", folderPt.x, folderPt.y);
 	
 	// STEP 1: Capture the Main View Content into an image, if we need to
 	if ((_lastControl == nil) || (_lastControl != sender))

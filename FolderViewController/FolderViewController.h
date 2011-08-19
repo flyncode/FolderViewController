@@ -53,8 +53,8 @@
 @property(nonatomic, retain) IBOutlet id<FolderViewControllerDelegate> delegate;
 @property(nonatomic, retain) UIView* contentView;
 @property(nonatomic, assign, readonly) UIView* folderView;
-@property(nonatomic, retain, readonly) UIImageView* arrowTip;
-@property(nonatomic, retain, readonly) UIImageView* bottomBGImage;
+@property(nonatomic, retain) UIImageView* arrowTip;
+@property(nonatomic, retain) UIImageView* bottomBGImage;
 
 - (IBAction)toggleFolder:(id)sender;
 - (IBAction)openFolder:(id)sender;
@@ -62,6 +62,7 @@
 
 - (UIView*)folderViewForControl:(id)control;
 
++ (UIImage*)maskImage:(UIImage*)src withMask:(UIImage*)maskImage;
 @end
 
 @interface FolderViewController (Protected)

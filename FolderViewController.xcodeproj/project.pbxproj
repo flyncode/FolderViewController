@@ -97,9 +97,6 @@
 		836D890D13E2FD8600A9A83B /* Test Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8399CF1E13F82940006771A7 /* ModalTestController.h */,
-				8399CF1F13F82940006771A7 /* ModalTestController.m */,
-				8399CF2013F82940006771A7 /* ModalTestController.xib */,
 				83AD68D613E04B99001DA5C1 /* FirstViewController.h */,
 				83AD68D713E04B9A001DA5C1 /* FirstViewController.m */,
 				83AD68E413E04B9A001DA5C1 /* FirstViewController.xib */,
@@ -109,6 +106,9 @@
 				838C9E9213E2F81000D6FB3E /* DelegateTestController.h */,
 				838C9E9313E2F81000D6FB3E /* DelegateTestController.m */,
 				838C9E9413E2F81000D6FB3E /* DelegateTestController.xib */,
+				8399CF1E13F82940006771A7 /* ModalTestController.h */,
+				8399CF1F13F82940006771A7 /* ModalTestController.m */,
+				8399CF2013F82940006771A7 /* ModalTestController.xib */,
 			);
 			name = "Test Controllers";
 			sourceTree = "<group>";

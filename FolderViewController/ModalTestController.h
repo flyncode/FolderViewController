@@ -23,6 +23,7 @@
 
 @property (retain, nonatomic) IBOutlet ModalViewController *modalView;
 
+- (IBAction)closeView:(id)sender;
 - (IBAction)showModalVIew:(id)sender;
 
 @end

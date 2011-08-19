@@ -25,7 +25,8 @@
 {
 	return self.folderContent;
 }
-- (void)dealloc {
+- (void)dealloc
+{
 	[folderContent release];
 	[super dealloc];
 }
@@ -76,6 +77,11 @@
 }
 
 #pragma mark - Events
+
+- (IBAction)closeView:(id)sender
+{
+	[self.parentViewController dismissModalViewControllerAnimated:YES];
+}
 
 - (IBAction)showModalVIew:(id)sender
 {

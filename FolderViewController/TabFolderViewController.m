@@ -30,12 +30,12 @@
 #import <QuartzCore/QuartzCore.h>
 
 const int STRETCH_LEFT_CAP = 28;
-const int OFFSET_X = 10;
+const int OFFSET_X = 0;
 const int OFFSET_Y = 15;
 
 @interface TabFolderViewController (Private)
 - (void)captureTabImageWithRect:(CGRect)tabRect imageMask:(UIImage*)maskImage;
-- (CGRect)getArrowRectForControl:(id)control;
+- (CGRect)getArrowRectInFolderViewForControl:(id)control;
 @end
 
 @implementation TabFolderViewController (Private)
@@ -54,7 +54,6 @@ const int OFFSET_Y = 15;
 	CGRect arrowFrame = [self getArrowRectInFolderViewForControl:_control];	
 	self.arrowTip.frame = arrowFrame;
 	self.arrowCover.frame = arrowFrame;	
-	//NSLog(@"adjustArrowPositionFromPoint: %f, %f, %f, %f", self.arrowCover.frame.origin.x, self.arrowCover.frame.origin.y, self.arrowCover.frame.size.width, self.arrowCover.frame.size.height);
 }
 
 - (void)adjustFolderFrameRelativeToPoint:(CGPoint)folderPt
@@ -80,8 +79,6 @@ const int OFFSET_Y = 15;
 	NSLog(@"layoutOpenFolderAtPoint: %f, %f, %f, %f", 	self.arrowCover.frame.origin.x + self.folderView.frame.origin.x, 
 		  												self.arrowCover.frame.origin.y + self.folderView.frame.origin.y, 
 		  												self.arrowCover.frame.size.width, self.arrowCover.frame.size.height);
-	//NSLog(@"Offset Origin: %f, %f", self.arrowCover.frame.origin.x + self.folderView.frame.origin.x, self.folderView.frame.origin.y + self.arrowCover.frame.origin.y);
-	
 	[self.view bringSubviewToFront:(UIView*)_control];
 }
 
@@ -94,14 +91,6 @@ const int OFFSET_Y = 15;
 	// Create the tab cover mask by stretching the arrow
 	// image to the size of the tab
 	UIImage* _tabMask = [[UIImage imageNamed:@"Arrow_Mask.png"] stretchableImageWithLeftCapWidth:STRETCH_LEFT_CAP topCapHeight:0];
-	
-	/*CGRect ctrlFrame = [control frame];
-	ctrlFrame = CGRectMake(ctrlFrame.origin.x - STRETCH_LEFT_CAP - OFFSET_X, 
-									ctrlFrame.origin.y - OFFSET_Y,
-									ctrlFrame.size.width + (STRETCH_LEFT_CAP * 2) + (OFFSET_X * 2), 
-									ctrlFrame.size.height + (OFFSET_Y * 2));
-	*/
-	//CGRect ctrlFrame = [self getArrowRectInFolderViewForControl:control];
 	
 	CGRect ctrlFrame = [control frame];
 	CGRect tabSizeRec = CGRectMake(0, 0, ctrlFrame.size.width + (STRETCH_LEFT_CAP * 2) + (OFFSET_X * 2), 
@@ -154,6 +143,9 @@ const int OFFSET_Y = 15;
 	// Mask the offscreen render with the input maskImage
 	CGImageRef masked = CGImageCreateWithMask(tabFG.CGImage, mask);
 	self.arrowCover.image = [UIImage imageWithCGImage:masked];
+	
+	CGImageRelease(masked);
+	CGImageRelease(mask);
 }
 
 @end
@@ -216,13 +208,6 @@ const int OFFSET_Y = 15;
 }
 
 #pragma mark - View lifecycle
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
