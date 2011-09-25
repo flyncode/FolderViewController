@@ -69,7 +69,7 @@ const int ANIMATION_STETCH = 1;
 	// Offset the current context to the portion of the view
 	// to pan down as a result of opening the folder
 	CGContextRef g = UIGraphicsGetCurrentContext();
-	CGContextTranslateCTM(g, 0, -(folderPt.y + _arrowBGView.frame.size.height));
+	CGContextTranslateCTM(g, 0, -self.bottomBGImage.frame.origin.y);
 	
 	// Capture the main view's content to an image
 	[self.view.layer renderInContext:g];	
@@ -100,7 +100,7 @@ const int ANIMATION_STETCH = 1;
 {
 	// Make sure the view which displays the bottom offset
 	// portion of the view is below the arrow
-	self.bottomBGImage.frame = CGRectMake(0, self.folderView.frame.origin.y,
+	self.bottomBGImage.frame = CGRectMake(0, folderPt.y,
 											self.view.bounds.size.width, 
 											self.view.bounds.size.height);
 }
@@ -164,24 +164,23 @@ const int ANIMATION_STETCH = 1;
 {
 	if (_arrowBGView == nil)
 	{
-#if 1
+		// Make a mask of the fabric background color, that will
+		// serve as the background of the arrow
 		UIImage* arrowMask = [UIImage imageNamed:@"Arrow_Mask.png"];
 		
+		// Make a graphics context the size of the arrow
 		UIGraphicsBeginImageContext(arrowMask.size);
 		CGContextRef g = UIGraphicsGetCurrentContext();
 		
+		// Fill the context with the iOS Fabric background
 		UIColor* fabricColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"fabric"]];
 		[fabricColor setFill];
-		
 		CGContextFillRect(g, CGRectMake(0,0,arrowMask.size.width,arrowMask.size.height));
-		UIImage* fabricImg = UIGraphicsGetImageFromCurrentImageContext();
 		
+		// Mask the fabric with the shape of the arrow
+		UIImage* fabricImg = UIGraphicsGetImageFromCurrentImageContext();
 		UIImage* img = [FolderViewController maskImage:fabricImg withMask:arrowMask];	
-#else
-		UIImage* img = [UIImage imageNamed:@"ArrowShadow.png"];
-		if (img == nil)
-			NSLog(@"WARNING: Could not load ArrowShadow.png");
-#endif
+
 		_arrowBGView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,img.size.width,img.size.height)];
 		_arrowBGView.image = img;
 		[self.folderView addSubview:_arrowBGView];
@@ -290,7 +289,12 @@ const int ANIMATION_STETCH = 1;
 	
 	// STEP 0: Get the content of the Folder View, via a sub-class or delegate
 	self.contentView = [self folderViewForControl:sender];
+	
+	// Adjust the Z-order of all the views 
+	// NOTE: The invoking control is brought to the top of the view's Z-order
+	// (other than the folder & bottomBG views)
 	[self.folderView removeFromSuperview];
+	[self.view bringSubviewToFront:_control];
 	[self.view insertSubview:self.folderView belowSubview:_control];
 	[self.view bringSubviewToFront:self.bottomBGImage];
 	
@@ -303,15 +307,21 @@ const int ANIMATION_STETCH = 1;
 		
 	CGPoint folderPt = [self folderOriginForControl:sender];
 	
-	// STEP 1: Capture the Main View Content into an image, if we need to
+	// CW - 2011.08.20 - Put the controls into place first so we can correctly
+	// capture the view content into images
+	
+	// STEP 1: Layout the folder view, arrow image, and bottom 
+	// part of the content view
+	
+	// NOTE: Always layout since the size of the folder view can
+	// change based upon contest
+	[self layoutClosedFolderAtPoint:folderPt];
+			
+	// STEP 2: Capture the Main View Content into an image, if we need to
 	if ((_lastControl == nil) || (_lastControl != sender))
 		[self captureImageFromControl:_control];
 	else
-		NSLog(@"Skipping captureImageFromControl");
-	
-	// STEP 2: Layout the folder view, arrow image, and bottom 
-	// part of the content view
-	[self layoutClosedFolderAtPoint:folderPt];
+		NSLog(@"Skipping positioning & capturing step");
 	
 	// STEP 3: Animate the view components, so the folder moves
 	// into the open position
@@ -332,8 +342,9 @@ const int ANIMATION_STETCH = 1;
 
 - (void)closeFolder:(id)sender
 {
-	// TEMPORARY HACK
-	_control = sender;
+	// NOTE: Close for the control that we opened for,
+	// not whoever invoked this event!
+	//_control = sender;
 	
 	if (!self.isOpen)
 		return;
@@ -342,7 +353,7 @@ const int ANIMATION_STETCH = 1;
 	if ([self.delegate respondsToSelector:@selector(willCloseFolderForControl:)])
 		[self.delegate willCloseFolderForControl:_control];
 
-	CGPoint folderPt = [self folderOriginForControl:sender];
+	CGPoint folderPt = [self folderOriginForControl:_control];
 	
 	// Restore the layout and hide the folder view after animation
 	[UIView beginAnimations:@"FolderClose" context:NULL];
