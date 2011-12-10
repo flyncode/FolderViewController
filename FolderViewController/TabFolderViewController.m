@@ -76,9 +76,6 @@ const int OFFSET_Y = 15;
 									   self.arrowCover.frame.size.height);
 									
 	[self.folderView bringSubviewToFront:self.arrowCover];
-	NSLog(@"layoutOpenFolderAtPoint: %f, %f, %f, %f", 	self.arrowCover.frame.origin.x + self.folderView.frame.origin.x, 
-		  												self.arrowCover.frame.origin.y + self.folderView.frame.origin.y, 
-		  												self.arrowCover.frame.size.width, self.arrowCover.frame.size.height);
 	[self.view bringSubviewToFront:(UIView*)_control];
 }
 
@@ -117,8 +114,6 @@ const int OFFSET_Y = 15;
 
 - (void)captureTabImageWithRect:(CGRect)tabRect imageMask:(UIImage*)maskImage
 {	
-	NSLog(@"captureTabImageWithRect: %f, %f, %f, %f", tabRect.origin.x, tabRect.origin.y, tabRect.size.width, tabRect.size.height);
-	
 	UIGraphicsBeginImageContext(tabRect.size);
 	
 	// Offset the current context to the portion of the view
