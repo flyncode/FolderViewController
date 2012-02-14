@@ -118,6 +118,12 @@ const int ANIMATION_STETCH = 1;
 	self.bottomBGImage.frame = CGRectOffset(self.bottomBGImage.frame, 0, self.folderView.frame.size.height);
 }
 
+- (void)bottomBGImageWasTapped
+{
+	if (self.isOpen)
+		[self closeFolder:self.bottomBGImage];
+}
+
 @end
 
 @implementation FolderViewController
@@ -146,6 +152,14 @@ const int ANIMATION_STETCH = 1;
 	{
 		_bgBottomView = [[UIImageView alloc] initWithFrame:CGRectZero];
 		_bgBottomView.hidden = YES;
+		_bgBottomView.userInteractionEnabled = YES;
+
+		UITapGestureRecognizer* tapToClose = [[UITapGestureRecognizer alloc] initWithTarget:self 
+																					 action:@selector(bottomBGImageWasTapped)];
+		tapToClose.numberOfTapsRequired = 1;
+		tapToClose.numberOfTouchesRequired = 1;
+		[_bgBottomView addGestureRecognizer:tapToClose];
+		
 		[self.view addSubview:_bgBottomView];
 	}
 

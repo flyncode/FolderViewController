@@ -79,4 +79,6 @@
 
 - (void)captureImageFromControl:(id)control;
 - (void)captureImageFromPoint:(CGPoint)folderPt;
+
+- (void)bottomBGImageWasTapped;
 @end
