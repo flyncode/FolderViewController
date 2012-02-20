@@ -124,6 +124,32 @@ const int ANIMATION_STETCH = 1;
 		[self closeFolder:self.bottomBGImage];
 }
 
+#pragma mark - Sub-class Hooks / Delegate Notification operations
+
+- (void)willOpenFolderForControl:(id)control
+{
+	if ([self.delegate respondsToSelector:@selector(willOpenFolderForControl:)])
+		[self.delegate willOpenFolderForControl:control];
+}
+
+- (void)didOpenFolderForControl:(id)control
+{
+	if ([self.delegate respondsToSelector:@selector(didOpenFolderForControl:)])
+		[self.delegate didOpenFolderForControl:control];
+}
+
+- (void)willCloseFolderForControl:(id)control
+{
+	if ([self.delegate respondsToSelector:@selector(willCloseFolderForControl:)])
+		[self.delegate willCloseFolderForControl:control];
+}
+
+- (void)didCloseFolderForControl:(id)control
+{
+	if ([self.delegate respondsToSelector:@selector(didCloseFolderForControl:)])
+		[self.delegate didCloseFolderForControl:control];
+}
+
 @end
 
 @implementation FolderViewController
@@ -159,6 +185,7 @@ const int ANIMATION_STETCH = 1;
 		tapToClose.numberOfTapsRequired = 1;
 		tapToClose.numberOfTouchesRequired = 1;
 		[_bgBottomView addGestureRecognizer:tapToClose];
+		[tapToClose release];
 		
 		[self.view addSubview:_bgBottomView];
 	}
@@ -298,8 +325,7 @@ const int ANIMATION_STETCH = 1;
 		return;
 	
 	// Notify our delegate that we will open
-	if ([self.delegate respondsToSelector:@selector(willOpenFolderForControl:)])
-		[self.delegate willOpenFolderForControl:_control];
+	[self willOpenFolderForControl:_control];
 	
 	// STEP 0: Get the content of the Folder View, via a sub-class or delegate
 	self.contentView = [self folderViewForControl:sender];
@@ -364,8 +390,7 @@ const int ANIMATION_STETCH = 1;
 		return;
 	
 	// Notify our delegate that we will close
-	if ([self.delegate respondsToSelector:@selector(willCloseFolderForControl:)])
-		[self.delegate willCloseFolderForControl:_control];
+	[self willCloseFolderForControl:_control];
 
 	CGPoint folderPt = [self folderOriginForControl:_control];
 	
@@ -386,8 +411,7 @@ const int ANIMATION_STETCH = 1;
 {
 	if ([animation isEqualToString:@"FolderOpen"])
 	{
-		if ([self.delegate respondsToSelector:@selector(didOpenFolderForControl:)])
-			[self.delegate didOpenFolderForControl:_control];
+		[self didOpenFolderForControl:_control];
 	}
 	else if ([animation isEqualToString:@"FolderClose"])
 	{
@@ -397,11 +421,8 @@ const int ANIMATION_STETCH = 1;
 		[self.contentView removeFromSuperview];
 		self.contentView = nil;
 		
-		if ([self.delegate respondsToSelector:@selector(didCloseFolderForControl:)])
-			[self.delegate didCloseFolderForControl:_control];
-		
+		[self didCloseFolderForControl:_control];		
 		_control = nil;
 	}
 }
-
 @end

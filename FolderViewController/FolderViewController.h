@@ -68,6 +68,12 @@
 @interface FolderViewController (Protected)
 - (CGPoint)folderOriginForControl:(id)control;
 
+// Sub-class Hooks / Delegate Notification operations
+- (void)willOpenFolderForControl:(id)control;
+- (void)didOpenFolderForControl:(id)control;
+- (void)willCloseFolderForControl:(id)control;
+- (void)didCloseFolderForControl:(id)control;
+
 // General layout operations
 - (void)layoutClosedFolderAtPoint:(CGPoint)folderPt;
 - (void)layoutOpenFolderAtPoint:(CGPoint)folderPt;
