@@ -304,7 +304,10 @@ const int ANIMATION_STETCH = 1;
 {
 	if (self.delegate != nil)
 		return [self.delegate folderView:self needsContentForControl:control];
-	@throw @"No Folder View content!";
+	
+	@throw [NSException exceptionWithName:@"NoFolderViewContent" 
+								   reason:@"No sub-class or Delegate method" 
+								 userInfo:nil];
 }
 
 #pragma mark - Open/Close methods
@@ -323,6 +326,17 @@ const int ANIMATION_STETCH = 1;
 	
 	if (self.isOpen)
 		return;
+	
+	// STEP -1: Dismiss keyboard if subview is FirstResponder.  If using the
+	// delegate instead of subclassing, this will need to be done by the client
+	for (UIView* child in self.view.subviews)
+	{
+		if (child.isFirstResponder)
+		{
+			[child resignFirstResponder];
+			break;
+		}
+	}
 	
 	// Notify our delegate that we will open
 	[self willOpenFolderForControl:_control];
@@ -354,7 +368,7 @@ const int ANIMATION_STETCH = 1;
 	// part of the content view
 	
 	// NOTE: Always layout since the size of the folder view can
-	// change based upon contest
+	// change based upon content
 	[self layoutClosedFolderAtPoint:folderPt];
 			
 	// STEP 2: Capture the Main View Content into an image, if we need to
