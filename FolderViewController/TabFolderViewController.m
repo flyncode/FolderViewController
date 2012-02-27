@@ -43,6 +43,9 @@ const int OFFSET_Y = 15;
 - (CGRect)getArrowRectInFolderViewForControl:(id)control
 {
 	CGRect ctrlFrame = [control frame];
+	if ([control superview] != self.view)
+		ctrlFrame = [[control superview] convertRect:[control frame] toView:self.view];
+
 	return CGRectMake(ctrlFrame.origin.x - STRETCH_LEFT_CAP - OFFSET_X, 
 					  -ctrlFrame.size.height - OFFSET_Y,
 					  ctrlFrame.size.width + (STRETCH_LEFT_CAP * 2) + (OFFSET_X * 2), 
@@ -61,7 +64,7 @@ const int OFFSET_Y = 15;
 	// Override to ignore the arrow image's height in determining
 	// the y-placement
 	self.folderView.frame = CGRectMake(0, folderPt.y,
-									   self.contentView.frame.size.width, 
+									   self.view.frame.size.width, 
 									   self.contentView.frame.size.height);
 }
 

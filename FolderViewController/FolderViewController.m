@@ -34,7 +34,17 @@ const int ANIMATION_STETCH = 1;
 
 - (CGPoint)folderOriginForControl:(id)control
 {
-	return CGPointMake([control center].x, [control frame].origin.y + [control frame].size.height);
+	CGPoint center = [control center];
+	CGRect frame = [control frame];
+	
+	// Adjust the coordinates to our view's coordinate system
+	if ([control superview] != self.view)
+	{
+		center = [[control superview] convertPoint:center toView:self.view];
+		frame = [[control superview] convertRect:frame toView:self.view];
+	}
+	
+	return CGPointMake(center.x, frame.origin.y + frame.size.height);
 }
 
 - (void)adjustArrowPositionFromPoint:(CGPoint)pt
@@ -92,7 +102,7 @@ const int ANIMATION_STETCH = 1;
 {
 	//Place the Folder View Just below Arrow View
 	self.folderView.frame = CGRectMake(0, folderPt.y + self.arrowTip.frame.size.height,
-										self.contentView.frame.size.width, 
+										self.view.frame.size.width, 
 										self.contentView.frame.size.height);
 }
 
@@ -354,7 +364,7 @@ const int ANIMATION_STETCH = 1;
 	
 	// Add the fabric background for free
 	UIColor* fabricColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"fabric"]];
-	self.contentView.backgroundColor = fabricColor;
+	self.folderView.backgroundColor = fabricColor;
 	
 	// Add the content to our folder container
 	[self.folderView addSubview:self.contentView];					
