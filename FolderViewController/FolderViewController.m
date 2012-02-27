@@ -449,4 +449,13 @@ const int ANIMATION_STETCH = 1;
 		_control = nil;
 	}
 }
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	self.folderView.frame = CGRectNewWidth(self.folderView.frame, self.view.frame.size.width);
+
+	// We can't used the cache'd bottom image next time
+	_lastControl = nil;
+}
+
 @end
