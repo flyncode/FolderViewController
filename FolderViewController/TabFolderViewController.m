@@ -33,30 +33,42 @@ const int STRETCH_LEFT_CAP = 28;
 const int OFFSET_X = 0;
 const int OFFSET_Y = 15;
 
+@interface TabFolderViewController (Protected)
+- (void)layoutOpenFolderAtPoint:(CGPoint)folderPt;
+@end
+
 @interface TabFolderViewController (Private)
 - (void)captureTabImageWithRect:(CGRect)tabRect imageMask:(UIImage*)maskImage;
-- (CGRect)getArrowRectInFolderViewForControl:(id)control;
 @end
 
 @implementation TabFolderViewController (Private)
 
-- (CGRect)getArrowRectInFolderViewForControl:(id)control
-{
-	CGRect ctrlFrame = [control frame];
-	if ([control superview] != self.view)
-		ctrlFrame = [[control superview] convertRect:[control frame] toView:self.view];
-
-	return CGRectMake(ctrlFrame.origin.x - STRETCH_LEFT_CAP - OFFSET_X, 
-					  -ctrlFrame.size.height - OFFSET_Y,
-					  ctrlFrame.size.width + (STRETCH_LEFT_CAP * 2) + (OFFSET_X * 2), 
-					  self.arrowTip.image.size.height + (OFFSET_Y * 2));
-}
-
 - (void)adjustArrowPositionFromPoint:(CGPoint)pt
 {
-	CGRect arrowFrame = [self getArrowRectInFolderViewForControl:_control];	
+	if ([_control superview] != [self.arrowTip superview])
+	{
+		//		self.arrowTip.frame = [[_control superview] convertRect:self.arrowTip.frame 
+		//													   fromView:self.view];
+		
+		//[self.arrowCover removeFromSuperview];
+		//[[_control superview] insertSubview:self.arrowCover belowSubview:_control];
+		
+		[self.arrowTip removeFromSuperview];
+		[[_control superview] insertSubview:self.arrowTip belowSubview:_control];
+	}
+	
+	CGRect ctrlFrame = [_control frame];
+	CGRect arrowFrame = CGRectMake(ctrlFrame.origin.x - STRETCH_LEFT_CAP - OFFSET_X, 
+								ctrlFrame.origin.y - OFFSET_Y,
+								ctrlFrame.size.width + (STRETCH_LEFT_CAP * 2) + (OFFSET_X * 2), 
+								self.arrowTip.image.size.height + (OFFSET_Y * 2));
+	
+	// Position in our view
+	//CGRect arrowFrame = [self getArrowRectInFolderViewForControl:_control];	
 	self.arrowTip.frame = arrowFrame;
-	self.arrowCover.frame = arrowFrame;	
+	//self.arrowCover.frame = arrowFrame;	
+	
+	self.arrowCover.frame = [self.folderView convertRect:arrowFrame fromView:[_control superview]];
 }
 
 - (void)adjustFolderFrameRelativeToPoint:(CGPoint)folderPt
@@ -66,6 +78,9 @@ const int OFFSET_Y = 15;
 	self.folderView.frame = CGRectMake(0, folderPt.y,
 									   self.view.frame.size.width, 
 									   self.contentView.frame.size.height);
+	
+	// Fill the Folder View with the contentView
+	self.contentView.frame = self.folderView.bounds;
 }
 
 - (void)layoutOpenFolderAtPoint:(CGPoint)folderPt
@@ -73,10 +88,11 @@ const int OFFSET_Y = 15;
 	[super layoutOpenFolderAtPoint:folderPt];
 	
 	// Move the "tab" image out of the way as well
-	self.arrowCover.frame = CGRectMake(self.arrowTip.frame.origin.x, 				
-									   self.folderView.frame.size.height,
-									   self.arrowCover.frame.size.width,
-									   self.arrowCover.frame.size.height);
+	self.arrowCover.frame = CGRectNewOriginY(self.arrowCover.frame, 
+		self.arrowTip.frame.origin.y + self.arrowTip.frame.size.height + 
+		self.folderView.frame.size.height);
+	
+	self.arrowCover.hidden = NO;
 									
 	[self.folderView bringSubviewToFront:self.arrowCover];
 	[self.view bringSubviewToFront:(UIView*)_control];
@@ -97,18 +113,22 @@ const int OFFSET_Y = 15;
 								   self.arrowTip.image.size.height + (OFFSET_Y * 2));
 								   //ctrlFrame.size.height + (OFFSET_Y * 2));
 	
+	CGRect oldFrame = self.arrowCover.frame;
 	self.arrowCover.frame = tabSizeRec;
 	self.arrowCover.image = _tabMask;
 	
 	UIGraphicsBeginImageContext(tabSizeRec.size);
 	[_tabMask drawInRect:tabSizeRec];
-	CGContextRef g = UIGraphicsGetCurrentContext();
-	[self.arrowCover.layer renderInContext:g];
+	//CGContextRef g = UIGraphicsGetCurrentContext();
+	//[self.arrowCover.layer renderInContext:g];
+	
+	self.arrowCover.frame = oldFrame;
 	
 	UIImage* sizedMask = UIGraphicsGetImageFromCurrentImageContext();
 	
 	// Capture portion of view that is the "tab cover"
-	CGRect tabRectInView = CGRectOffset(tabSizeRec, ctrlFrame.origin.x - STRETCH_LEFT_CAP - OFFSET_X, ctrlFrame.origin.y - OFFSET_Y);
+	//CGRect tabRectInView = CGRectOffset(tabSizeRec, ctrlFrame.origin.x - STRETCH_LEFT_CAP - OFFSET_X, ctrlFrame.origin.y - OFFSET_Y);
+	CGRect tabRectInView = [self.view convertRect:ctrlFrame fromView:[_control superview]];
 	
 	[control setHidden:YES];
 	[self captureTabImageWithRect:tabRectInView imageMask:sizedMask];
@@ -125,7 +145,10 @@ const int OFFSET_Y = 15;
 	CGContextTranslateCTM(g, -tabRect.origin.x, -tabRect.origin.y);
 	
 	// Capture the main content view
-	[self.view.layer renderInContext:g];	
+	self.arrowTip.hidden = YES;
+	//[[self.arrowCover superview].layer renderInContext:g];	
+	[self.view.layer renderInContext:g];
+	self.arrowTip.hidden = NO;
 	
 	UIImage* tabFG = UIGraphicsGetImageFromCurrentImageContext();
 	
@@ -149,6 +172,18 @@ const int OFFSET_Y = 15;
 @end
 
 @implementation TabFolderViewController
+
+- (void)willOpenFolderForControl:(id)control
+{
+	self.arrowCover.hidden = NO;
+	[super willOpenFolderForControl:control];
+}
+
+- (void)didCloseFolderForControl:(id)control
+{
+	[super didCloseFolderForControl:control];
+	self.arrowCover.hidden = YES;
+}
 
 #pragma mark - Properties
 
