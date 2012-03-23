@@ -49,6 +49,7 @@
 	id _lastControl;
 }
 
+@property(assign, readwrite) BOOL cacheBottomBG;
 @property(assign, readonly) BOOL isOpen;
 @property(nonatomic, retain) IBOutlet id<FolderViewControllerDelegate> delegate;
 @property(nonatomic, retain) UIView* contentView;
@@ -56,13 +57,20 @@
 @property(nonatomic, retain) UIImageView* arrowTip;
 @property(nonatomic, retain) UIImageView* bottomBGImage;
 
+// Initializers
+- (id)initWithCoder:(NSCoder *)aDecoder;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
+
+// Action methods
 - (IBAction)toggleFolder:(id)sender;
 - (IBAction)openFolder:(id)sender;
 - (IBAction)closeFolder:(id)sender;
 
 - (UIView*)folderViewForControl:(id)control;
 
+// Utility methods
 + (UIImage*)maskImage:(UIImage*)src withMask:(UIImage*)maskImage;
+
 @end
 
 @interface FolderViewController (Protected)

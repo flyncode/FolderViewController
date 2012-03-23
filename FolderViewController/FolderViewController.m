@@ -74,7 +74,7 @@ const int ANIMATION_STETCH = 1;
 
 - (void)captureImageFromPoint:(CGPoint)folderPt
 {
-    UIGraphicsBeginImageContext(self.view.frame.size);
+	UIGraphicsBeginImageContextWithOptions(self.view.frame.size, YES, 0);
 	
 	// Offset the current context to the portion of the view
 	// to pan down as a result of opening the folder
@@ -104,12 +104,13 @@ const int ANIMATION_STETCH = 1;
 	self.folderView.frame = CGRectMake(0, folderPt.y + self.arrowTip.frame.size.height,
 										self.view.frame.size.width, 
 										self.contentView.frame.size.height);
+	
+	// Fill the Folder View with the contentView
+	self.contentView.frame = self.folderView.bounds;
 }
 
 - (void)adjustCaptureFrameRelativeToPoint:(CGPoint)folderPt
 {
-	// Make sure the view which displays the bottom offset
-	// portion of the view is below the arrow
 	self.bottomBGImage.frame = CGRectMake(0, folderPt.y,
 											self.view.bounds.size.width, 
 											self.view.bounds.size.height);
@@ -124,8 +125,12 @@ const int ANIMATION_STETCH = 1;
 
 - (void)layoutOpenFolderAtPoint:(CGPoint)folderPt
 {
-	// Move the captured view BG into position below the edge of the folder
-	self.bottomBGImage.frame = CGRectOffset(self.bottomBGImage.frame, 0, self.folderView.frame.size.height);
+	[self.view sendSubviewToBack:self.arrowTip];
+	[self adjustFolderFrameRelativeToPoint:folderPt];
+	self.bottomBGImage.frame = CGRectMake(0, 
+									folderPt.y + self.folderView.frame.size.height,
+									self.view.bounds.size.width, 
+									self.view.bounds.size.height);
 }
 
 - (void)bottomBGImageWasTapped
@@ -167,6 +172,7 @@ const int ANIMATION_STETCH = 1;
 #pragma mark - Properties
 
 @synthesize delegate;
+@synthesize cacheBottomBG;
 @synthesize isOpen;
 @synthesize contentView;
 
@@ -234,6 +240,7 @@ const int ANIMATION_STETCH = 1;
 
 		_arrowBGView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,img.size.width,img.size.height)];
 		_arrowBGView.image = img;
+		_arrowBGView.hidden = YES;
 		[self.folderView addSubview:_arrowBGView];
 	}
 	
@@ -247,7 +254,23 @@ const int ANIMATION_STETCH = 1;
 	_arrowBGView = [arrowTip retain];
 }
 
-#pragma mark -
+#pragma mark - Initializers
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	if (self = [super initWithCoder:aDecoder])
+		self.cacheBottomBG = YES;
+	return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
+		self.cacheBottomBG = YES;
+	return self;
+}
+
+#pragma mark - Utility Methods
 
 + (UIImage*)maskImage:(UIImage*)src withMask:(UIImage*)maskImage
 {
@@ -280,11 +303,6 @@ const int ANIMATION_STETCH = 1;
 	
 	_control = nil;
 	_lastControl = nil;
-}
-
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return UIInterfaceOrientationIsLandscape(interfaceOrientation);	
 }
 
 - (void)didReceiveMemoryWarning
@@ -369,8 +387,6 @@ const int ANIMATION_STETCH = 1;
 	// Add the content to our folder container
 	[self.folderView addSubview:self.contentView];					
 		
-	CGPoint folderPt = [self folderOriginForControl:sender];
-	
 	// CW - 2011.08.20 - Put the controls into place first so we can correctly
 	// capture the view content into images
 	
@@ -379,10 +395,11 @@ const int ANIMATION_STETCH = 1;
 	
 	// NOTE: Always layout since the size of the folder view can
 	// change based upon content
+	CGPoint folderPt = [self folderOriginForControl:sender];
 	[self layoutClosedFolderAtPoint:folderPt];
-			
+	
 	// STEP 2: Capture the Main View Content into an image, if we need to
-	if ((_lastControl == nil) || (_lastControl != sender))
+	if (!self.cacheBottomBG || (_lastControl == nil) || (_lastControl != sender))
 		[self captureImageFromControl:_control];
 	else
 		NSLog(@"Skipping positioning & capturing step");
@@ -397,6 +414,7 @@ const int ANIMATION_STETCH = 1;
 	
 	self.folderView.hidden = NO;
 	self.bottomBGImage.hidden = NO;
+	self.arrowTip.hidden = NO;
 	
 	[self layoutOpenFolderAtPoint:folderPt];
 	[UIView commitAnimations];
@@ -441,6 +459,7 @@ const int ANIMATION_STETCH = 1;
 	{
 		self.folderView.hidden = YES;
 		self.bottomBGImage.hidden = YES;
+		self.arrowTip.hidden = YES;
 
 		[self.contentView removeFromSuperview];
 		self.contentView = nil;
@@ -452,7 +471,8 @@ const int ANIMATION_STETCH = 1;
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-	self.folderView.frame = CGRectNewWidth(self.folderView.frame, self.view.frame.size.width);
+	//[self captureImageFromControl:_control];
+	[self layoutOpenFolderAtPoint:[self folderOriginForControl:_lastControl]];
 
 	// We can't used the cache'd bottom image next time
 	_lastControl = nil;
