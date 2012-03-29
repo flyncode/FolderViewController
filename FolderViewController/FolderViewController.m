@@ -466,6 +466,7 @@ const int ANIMATION_STETCH = 1;
 		
 		[self didCloseFolderForControl:_control];		
 		_control = nil;
+		_lastControl = nil;		// We can't use the cache'd bottom image next time
 	}
 }
 
@@ -473,9 +474,9 @@ const int ANIMATION_STETCH = 1;
 {
 	//[self captureImageFromControl:_control];
 	[self layoutOpenFolderAtPoint:[self folderOriginForControl:_lastControl]];
-
+	
 	// We can't used the cache'd bottom image next time
-	_lastControl = nil;
+	//_lastControl = nil;
 }
 
 @end
