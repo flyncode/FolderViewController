@@ -438,7 +438,7 @@ const int ANIMATION_STETCH = 1;
 	// STEP 3: Animate the view components, so the folder moves
 	// into the open position
 	[UIView beginAnimations:@"FolderOpen" context:NULL];
-	[UIView setAnimationDuration:(0.5 * (double)ANIMATION_STETCH)];
+	[UIView setAnimationDuration:(0.4 * (double)ANIMATION_STETCH)];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];		
 	[UIView setAnimationDidStopSelector:@selector(animation:didFinish:context:)];
 	[UIView setAnimationDelegate:self];
