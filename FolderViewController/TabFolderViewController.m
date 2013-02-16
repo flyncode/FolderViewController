@@ -119,21 +119,12 @@ const int OFFSET_Y = 15;
 								   self.arrowTip.image.size.height + (OFFSET_Y * 2));
 								   //ctrlFrame.size.height + (OFFSET_Y * 2));
 	
-	CGRect oldFrame = self.arrowCover.frame;
-	self.arrowCover.frame = tabSizeRec;
-	self.arrowCover.image = _tabMask;
-	
 	UIGraphicsBeginImageContext(tabSizeRec.size);
 	[_tabMask drawInRect:tabSizeRec];
-	//CGContextRef g = UIGraphicsGetCurrentContext();
-	//[self.arrowCover.layer renderInContext:g];
-	
-	self.arrowCover.frame = oldFrame;
 	
 	UIImage* sizedMask = UIGraphicsGetImageFromCurrentImageContext();
 	
 	// Capture portion of view that is the "tab cover"
-	//CGRect tabRectInView = CGRectOffset(tabSizeRec, ctrlFrame.origin.x - STRETCH_LEFT_CAP - OFFSET_X, ctrlFrame.origin.y - OFFSET_Y);
 	CGRect tabRectInView = [self.view convertRect:ctrlFrame fromView:[_control superview]];
 	
 	BOOL controlWasHidden = [control isHidden];
@@ -153,7 +144,6 @@ const int OFFSET_Y = 15;
 	
 	// Capture the main content view
 	self.arrowTip.hidden = YES;
-	//[[self.arrowCover superview].layer renderInContext:g];	
 	[self.view.layer renderInContext:g];
 	self.arrowTip.hidden = NO;
 	
