@@ -32,8 +32,9 @@
 @interface TabFolderViewController : FolderViewController
 {
 	UIImageView* _tabCover;
+	UIImageView* _foreArrowCover;
 }
 
 @property (nonatomic, retain, readonly) UIImageView* arrowCover;
-
+@property (nonatomic, retain, readonly) UIImageView* foreArrowCover;
 @end

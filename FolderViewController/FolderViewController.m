@@ -30,6 +30,25 @@
 
 const int ANIMATION_STETCH = 1;
 
+@interface UIView (BCUIViewUtil)
+- (void)recursiveResignFirstResponder;
+@end
+
+@implementation UIView (BCUIViewUtil)
+- (void)recursiveResignFirstResponder
+{
+    for (UIView* child in self.subviews)
+    {
+        [child recursiveResignFirstResponder];
+        if (child.isFirstResponder)
+        {
+            [child resignFirstResponder];
+            break;
+        }
+    }
+}
+@end
+
 @implementation FolderViewController (Protected)
 
 - (CGPoint)folderOriginForControl:(id)control
@@ -182,7 +201,9 @@ const int ANIMATION_STETCH = 1;
 	{
 		_folderView = [[UIView alloc] initWithFrame:CGRectZero];
 		_folderView.hidden = YES;
-		[self.view addSubview:_folderView];
+		_folderView.clipsToBounds = YES;
+		[self.view insertSubview:_folderView belowSubview:_control];
+		//[self.view addSubview:_folderView];
 	}
 	
 	return _folderView;
@@ -327,6 +348,23 @@ const int ANIMATION_STETCH = 1;
     [super dealloc];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	if (self.isOpen)
+	{
+		BOOL bTouchInside = NO;
+		
+		for (UITouch* touch in touches)
+		{
+			CGPoint pt = [touch locationInView:self.view];
+			bTouchInside = bTouchInside || CGRectContainsPoint(self.folderView.frame, pt);
+		}
+		
+		if (bTouchInside == NO)
+			[self closeFolder:self];
+	}
+}
+
 #pragma mark - Folder View retrieval
 - (UIView*)folderViewForControl:(id)control
 {
@@ -357,17 +395,7 @@ const int ANIMATION_STETCH = 1;
 	
 	// STEP -1: Dismiss keyboard if subview is FirstResponder.  If using the
 	// delegate instead of subclassing, this will need to be done by the client
-	for (UIView* child in self.view.subviews)
-	{
-		if (child.isFirstResponder)
-		{
-			[child resignFirstResponder];
-			break;
-		}
-	}
-	
-	// Notify our delegate that we will open
-	[self willOpenFolderForControl:_control];
+    [self.view recursiveResignFirstResponder];
 	
 	// STEP 0: Get the content of the Folder View, via a sub-class or delegate
 	self.contentView = [self folderViewForControl:sender];
@@ -403,6 +431,9 @@ const int ANIMATION_STETCH = 1;
 		[self captureImageFromControl:_control];
 	else
 		NSLog(@"Skipping positioning & capturing step");
+	
+	// Notify our delegate that we will open
+	[self willOpenFolderForControl:_control];
 	
 	// STEP 3: Animate the view components, so the folder moves
 	// into the open position

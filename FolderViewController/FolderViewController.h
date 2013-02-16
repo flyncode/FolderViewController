@@ -45,6 +45,8 @@
 	UIImageView* _arrowBGView;
 	UIImageView* _bgBottomView;
 	
+	UIView* _originalSuperview;
+	
 	id _control;
 	id _lastControl;
 }

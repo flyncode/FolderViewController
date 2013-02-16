@@ -31,6 +31,7 @@
 #import "SecondViewController.h"
 #import "DelegateTestController.h"
 #import "ModalTestController.h"
+#import "SubviewViewController.h"
 
 @implementation FolderViewControllerAppDelegate
 
@@ -45,9 +46,10 @@
 	UIViewController* viewController2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController" bundle:nil];
 	UIViewController* viewController3 = [[DelegateTestController alloc] initWithNibName:@"DelegateTestController" bundle:nil];
 	UIViewController* viewController4 = [[ModalTestController alloc] initWithNibName:@"ModalTestController" bundle:nil];
+	UIViewController* viewController5 = [[SubviewViewController alloc] initWithNibName:@"SubviewViewController" bundle:nil];
 	
 	self.tabBarController = [[UITabBarController alloc] init];
-	self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController3, viewController4, nil];
+	self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController3, viewController4, viewController5, nil];
 	self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;

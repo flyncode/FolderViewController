@@ -31,6 +31,8 @@
 		83AD68FB13E04D0F001DA5C1 /* Arrow_Mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68F613E04D0F001DA5C1 /* Arrow_Mask.png */; };
 		83AD68FD13E04D0F001DA5C1 /* Arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68F813E04D0F001DA5C1 /* Arrow.png */; };
 		83AD68FE13E04D0F001DA5C1 /* background_folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AD68F913E04D0F001DA5C1 /* background_folder.png */; };
+		83C6013416C7256200EE78F5 /* SubviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C6013216C7256200EE78F5 /* SubviewViewController.m */; };
+		83C6013516C7256200EE78F5 /* SubviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83C6013316C7256200EE78F5 /* SubviewViewController.xib */; };
 		83F02E2B13E481C900753768 /* Paper_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 83F02E2A13E481C900753768 /* Paper_Background.png */; };
 		83F02E2E13E4D61100753768 /* third.png in Resources */ = {isa = PBXBuildFile; fileRef = 83F02E2C13E4D61100753768 /* third.png */; };
 		83F02E2F13E4D61100753768 /* third@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83F02E2D13E4D61100753768 /* third@2x.png */; };
@@ -73,6 +75,9 @@
 		83AD68F613E04D0F001DA5C1 /* Arrow_Mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Arrow_Mask.png; sourceTree = "<group>"; };
 		83AD68F813E04D0F001DA5C1 /* Arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Arrow.png; sourceTree = "<group>"; };
 		83AD68F913E04D0F001DA5C1 /* background_folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_folder.png; sourceTree = "<group>"; };
+		83C6013116C7256200EE78F5 /* SubviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubviewViewController.h; sourceTree = "<group>"; };
+		83C6013216C7256200EE78F5 /* SubviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubviewViewController.m; sourceTree = "<group>"; };
+		83C6013316C7256200EE78F5 /* SubviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubviewViewController.xib; sourceTree = "<group>"; };
 		83F02E2A13E481C900753768 /* Paper_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Paper_Background.png; sourceTree = "<group>"; };
 		83F02E2C13E4D61100753768 /* third.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = third.png; sourceTree = "<group>"; };
 		83F02E2D13E4D61100753768 /* third@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "third@2x.png"; sourceTree = "<group>"; };
@@ -109,6 +114,9 @@
 				8399CF1E13F82940006771A7 /* ModalTestController.h */,
 				8399CF1F13F82940006771A7 /* ModalTestController.m */,
 				8399CF2013F82940006771A7 /* ModalTestController.xib */,
+				83C6013116C7256200EE78F5 /* SubviewViewController.h */,
+				83C6013216C7256200EE78F5 /* SubviewViewController.m */,
+				83C6013316C7256200EE78F5 /* SubviewViewController.xib */,
 			);
 			name = "Test Controllers";
 			sourceTree = "<group>";
@@ -256,6 +264,7 @@
 				83F02E3113E4F41900753768 /* fabric.png in Resources */,
 				83F02E3313E4F52400753768 /* ArrowShadow.png in Resources */,
 				8399CF2213F82940006771A7 /* ModalTestController.xib in Resources */,
+				83C6013516C7256200EE78F5 /* SubviewViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +283,7 @@
 				83AD68F413E04CA2001DA5C1 /* FolderViewController.m in Sources */,
 				838C9E9513E2F81100D6FB3E /* DelegateTestController.m in Sources */,
 				8399CF2113F82940006771A7 /* ModalTestController.m in Sources */,
+				83C6013416C7256200EE78F5 /* SubviewViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
