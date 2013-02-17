@@ -98,7 +98,8 @@ const int ANIMATION_STETCH = 1;
 	// Offset the current context to the portion of the view
 	// to pan down as a result of opening the folder
 	CGContextRef g = UIGraphicsGetCurrentContext();
-	CGContextTranslateCTM(g, 0, -self.bottomBGImage.frame.origin.y);
+	//CGContextTranslateCTM(g, 0, -self.bottomBGImage.frame.origin.y);
+	CGContextTranslateCTM(g, 0, -folderPt.y);
 	
 	// Capture the main view's content to an image
 	[self.view.layer renderInContext:g];	
